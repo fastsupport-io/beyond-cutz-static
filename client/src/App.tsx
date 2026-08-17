@@ -1,42 +1,30 @@
+/** Precision Landscape Studio: Route structure mirrors the WordPress page portfolio and keeps every public path connected to the local conversion narrative. */
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { ContactPage } from "./pages/ContactPage";
+import { DetailPage } from "./pages/DetailPage";
 import Home from "./pages/Home";
-
+import NotFound from "./pages/NotFound";
+import { ResourcesPage } from "./pages/ResourcesPage";
 
 function Router() {
-  return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
-    </Switch>
-  );
+  return <Switch>
+    <Route path="/" component={Home} />
+    <Route path="/resources/" component={ResourcesPage} />
+    <Route path="/contact/" component={ContactPage} />
+    <Route path="/residential-lawn-care/" component={DetailPage} />
+    <Route path="/commercial-lawn-care/" component={DetailPage} />
+    <Route path="/lawn-mowing/" component={DetailPage} />
+    <Route path="/landscape-maintenance/" component={DetailPage} />
+    <Route path="/service-areas/midlothian-va/" component={DetailPage} />
+    <Route path="/service-areas/chesterfield-va/" component={DetailPage} />
+    <Route component={NotFound} />
+  </Switch>;
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
-function App() {
-  return (
-    <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
-        <TooltipProvider>
-          <Toaster />
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
-    </ErrorBoundary>
-  );
+export default function App() {
+  return <ErrorBoundary><ThemeProvider defaultTheme="light"><TooltipProvider><Toaster /><Router /></TooltipProvider></ThemeProvider></ErrorBoundary>;
 }
-
-export default App;
